@@ -10,10 +10,17 @@ django==4.2
     # via
     #   -r requirements/base.in
     #   djangorestframework
+    #   djangorestframework-simplejwt
 django-environ==0.10.0
     # via -r requirements/base.in
 djangorestframework==3.14.0
+    # via
+    #   -r requirements/base.in
+    #   djangorestframework-simplejwt
+djangorestframework-simplejwt==5.3.1
     # via -r requirements/base.in
+pyjwt==2.9.0
+    # via djangorestframework-simplejwt
 pytz==2024.1
     # via djangorestframework
 sqlparse==0.5.1
