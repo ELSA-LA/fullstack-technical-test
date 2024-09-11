@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.conf import settings
 
 # Modelo de Usuario personalizado
 class UsuarioManager(BaseUserManager):
@@ -100,13 +101,13 @@ class Adopcion(models.Model):
         Animal, on_delete=models.CASCADE, related_name="adopciones"
     )
     adoptador = models.ForeignKey(
-        "Usuario",
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="adopciones_adoptador",
         limit_choices_to={"rol": "A"},
     )
     voluntario = models.ForeignKey(
-        "Usuario",
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         related_name="adopciones_voluntario",
