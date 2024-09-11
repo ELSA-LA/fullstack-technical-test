@@ -8,54 +8,152 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Adoptador',
+            name="Adoptador",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
-                ('apellido', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('contrasena', models.CharField(max_length=128)),
-                ('estado', models.CharField(choices=[('A', 'Activo'), ('I', 'Inactivo')], default='A', max_length=1)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
+                ("apellido", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=254, unique=True)),
+                ("contrasena", models.CharField(max_length=128)),
+                (
+                    "estado",
+                    models.CharField(
+                        choices=[("A", "Activo"), ("I", "Inactivo")],
+                        default="A",
+                        max_length=1,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Voluntario',
+            name="Voluntario",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
-                ('apellido', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('contrasena', models.CharField(max_length=128)),
-                ('estado', models.CharField(choices=[('A', 'Activo'), ('I', 'Inactivo')], default='A', max_length=1)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
+                ("apellido", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=254, unique=True)),
+                ("contrasena", models.CharField(max_length=128)),
+                (
+                    "estado",
+                    models.CharField(
+                        choices=[("A", "Activo"), ("I", "Inactivo")],
+                        default="A",
+                        max_length=1,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Animal',
+            name="Animal",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
-                ('edad', models.IntegerField()),
-                ('raza', models.CharField(max_length=100)),
-                ('tipo', models.CharField(choices=[('P', 'Perro'), ('G', 'Gato')], max_length=1)),
-                ('estado', models.CharField(choices=[('AD', 'Adoptado'), ('EA', 'En adopción'), ('EE', 'En espera de adopción')], default='EE', max_length=2)),
-                ('voluntario', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='animales', to='albergue.voluntario')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
+                ("edad", models.IntegerField()),
+                ("raza", models.CharField(max_length=100)),
+                (
+                    "tipo",
+                    models.CharField(
+                        choices=[("P", "Perro"), ("G", "Gato")], max_length=1
+                    ),
+                ),
+                (
+                    "estado",
+                    models.CharField(
+                        choices=[
+                            ("AD", "Adoptado"),
+                            ("EA", "En adopción"),
+                            ("EE", "En espera de adopción"),
+                        ],
+                        default="EE",
+                        max_length=2,
+                    ),
+                ),
+                (
+                    "voluntario",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="animales",
+                        to="albergue.voluntario",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Adopcion',
+            name="Adopcion",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fecha', models.DateField(auto_now_add=True)),
-                ('estado', models.CharField(choices=[('F', 'Finalizado'), ('P', 'En proceso')], default='P', max_length=1)),
-                ('fecha_devolucion', models.DateField(blank=True, null=True)),
-                ('adoptador', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='adopciones', to='albergue.adoptador')),
-                ('animal', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='adopciones', to='albergue.animal')),
-                ('voluntario', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='adopciones', to='albergue.voluntario')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("fecha", models.DateField(auto_now_add=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        choices=[("F", "Finalizado"), ("P", "En proceso")],
+                        default="P",
+                        max_length=1,
+                    ),
+                ),
+                ("fecha_devolucion", models.DateField(blank=True, null=True)),
+                (
+                    "adoptador",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="adopciones",
+                        to="albergue.adoptador",
+                    ),
+                ),
+                (
+                    "animal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="adopciones",
+                        to="albergue.animal",
+                    ),
+                ),
+                (
+                    "voluntario",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="adopciones",
+                        to="albergue.voluntario",
+                    ),
+                ),
             ],
         ),
     ]
