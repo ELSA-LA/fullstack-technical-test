@@ -1,0 +1,51 @@
+# TEMPs
+*.DS_Store
+*.bak
+*.egg-info
+*.old
+*.orig
+*.pyc
+*~
+.*.swp
+.*~
+
+# IDEs
+*.code-workspace
+*.log*
+*.nja
+*.sublime-*
+*.~*
+.hgignore
+.idea/*
+.komodoproject
+.komodotools
+.project
+.pydevproject
+animal_shelter/.settings/*
+
+# PROJECT
+.env
+.profiles/*
+credentials.json
+local_settings.py
+animal_shelter/.venv/*
+animal_shelter/.vscode/*
+animal_shelter/bin/*
+animal_shelter/browsermob*
+animal_shelter/data*.csv
+animal_shelter/data/*
+animal_shelter/env/*
+animal_shelter/media/*
+animal_shelter/project/settings_*
+animal_shelter/static_files/*
+
+# DBs
+*.dat
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/*
+
+#
+__pycache__/
