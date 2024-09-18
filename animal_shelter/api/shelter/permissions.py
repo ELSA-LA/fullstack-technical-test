@@ -20,6 +20,8 @@ class IsOwnResource(BasePermission):
         if request.user.is_adoptant:
             # Los adoptantes solo pueden acceder a su propio registro
             return obj.id == request.user.id and request.user.is_adoptant
+        if request.user.is_superuser:
+            return True
         return False
 
     def has_permission(self, request, view):
@@ -39,6 +41,8 @@ class IsOwnResource(BasePermission):
             # Los adoptantes pueden ver y modificar solo su propio perfil
             if request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
                 return request.user.is_adoptant and view.kwargs.get('pk') == str(request.user.id)
+            return True
+        if request.user.is_superuser:
             return True
         
         return False

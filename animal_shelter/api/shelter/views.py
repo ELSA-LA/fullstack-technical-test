@@ -40,6 +40,12 @@ class AdoptantViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST':
             return AdoptantCreationSerializer
         return AdoptantSerializer
+    
+    def perform_create(self, serializer):
+        if self.request.user.is_superuser:
+            serializer.save()
+        else:
+            raise permissions.PermissionDenied("No tienes permiso para crear adoptantes")
 
 class AnimalViewSet(viewsets.ModelViewSet):
     # queryset = Animal.objects.all()

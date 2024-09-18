@@ -1,71 +1,154 @@
-# FULLSTACK TECHNICAL TEST
-## Creación de un API REST con Django Rest Framework y un client web con React
+Proyecto Animal Shelter (Shelter API)
+=================
 
-La prueba consiste en crear un API REST para un único recurso, la cual será consumida desde un cliente web. La generación de todos los archivos necesarios y el manejo de una óptima estructura de archivos debe ser realizado por el/la postulante. Genere un fork de este repositorio. Utilice versiones con soporte de Python, Django y React.
+## Guidelines
 
-# Objetivos de la prueba
-* Evaluar el pensamiento computacional y el enfoque empleado al resolver problemas.
-* Evaluar el conocimiento general del lenguaje Python y de React.
-* Evaluar el conocimiento en arquitecturas web (MVC, REST).
-* Evaluar buenas prácticas en el código.
-* Evaluar el conocimiento de buenas prácticas de seguridad.
-  
-## Requerimientos generales
+------
 
-1. El API REST debe ser desarrollado con Django Rest Framework.
-2. El cliente web debe ser desarrollado con React + Typescript.
-3. El cliente web debe consumir el API REST.
-4. Se debe utilizar el ORM de Django para el modelo de la base de datos.
-5. Se debe crear un archivo `requirements.txt` con las dependencias necesarias para ejecutar el proyecto.
-6. Se debe crear un archivo `README.md` en el cual se explique el funcionamiento del proyecto, así como las instrucciones para ejecutarlo.
-7. Se debe crear un archivo `.env` que contenga las variables de entorno necesarias para la ejecución del proyecto.
+API para administrar un albergue de animales rescatados, permitiendo gestionar animales (perros y gatos), voluntarios, adoptantes, y las adopciones. Esta API ofrece operaciones CRUD para cada entidad y está protegida mediante autenticación JWT.
 
-## Requerimientos backend
-1. Generar un API para administrar un albergue de animales rescatados (perros y gatos). Se debe poder llevar un control de los animales en albergue: nombre, edad, raza, tipo (perro o gato), estado (adoptado, en adopción, en espera de adopción, etc). Se debe poder llevar un control de los voluntarios que trabajan en el albergue: nombre, apellido, correo electrónico, contraseña, estado (activo, inactivo, etc). Se debe poder llevar un control de las personas que adoptan animales: nombre, apellido, correo electrónico, contraseña, estado (activo, inactivo, etc). Se debe poder llevar un control de las adopciones, es decir, el registro de cuándo y a quién se le entregó un animal: fecha, animal, voluntario, persona que adopta, estado (finalizado, en proceso, etc).
+## Índice
 
-    **Nota:** El endpoint debe permitir realizar las siguientes operaciones:
-    * Listar todos los animales en albergue. [GET]
-    * Listar todos los voluntarios. [GET]
-    * Listar todos los adoptantes. [GET]
-    * Listar todas las adopciones. [GET]
-    * Crear un animal en albergue. [POST]
-    * Crear un voluntario. [POST]
-    * Crear un adoptante. [POST]
-    * Crear una adopción. [POST]
-    * Obtener un animal en albergue. [GET by ID]
-    * Obtener una adopción. [GET by ID]
-    * Actualizar un animal en albergue. [POST/PATCH]
-    * Actualizar un voluntario. [POST/PATCH]
-    * Actualizar un adoptante. [POST/PATCH]
-    * Actualizar una adopción. [POST/PATCH]
-    * Eliminar un animal en albergue. [DELETE]
-    * Eliminar un voluntario. [DELETE]
-    * Eliminar un adoptante. [DELETE]
-    * Eliminar una adopción. [DELETE]
+1. [Descripción](#descripción)
+2. [Características](#características)
+3. [Requerimientos](#requerimientos)
+4. [Instalación](#instalación)
+5. [Uso](#uso)
+6. [Autenticación](#autenticación)
+7. [Documentación de la API](#documentación-de-la-api)
+8. [Contribuciones](#contribuciones)
+9. [Licencia](#licencia)
 
-2. El modelo de la base de datos queda a elección del postulante; sin embargo, esta debe tener todo lo necesario para plasmar lo explicado en el requerimiento anterior.
+## Descripción
 
-3. Se desea validar que los requests cumplan las restricciones establecidas en el modelo de la base de datos. Los errores deben mostrarse al usuario en el response en caso de haberlos.
+La **Shelter API** es una aplicación diseñada para administrar un albergue de animales, permitiendo llevar el control de:
+- Animales en el albergue (nombre, raza, edad, tipo, estado de adopción).
+- Voluntarios (información personal y estado).
+- Adoptantes (información personal y estado).
+- Adopciones (registro de adopciones realizadas).
 
-4. Se desea que el API sea restringido mediante algún método de autenticación. Queda a elección del postulante el approach de autenticación a seguir. El nivel de seguridad será evaluado.
+## Características
 
-5. Se desea que el usuario se autentifique mediante json web tokens, para ello se utilizará la librería Simple JWT para Django rest framework. (ACCESS + REFRESH TOKEN)
+- Autenticación mediante JSON Web Tokens (JWT).
+- Operaciones CRUD completas para las entidades:
+  - Animales
+  - Voluntarios
+  - Adoptantes
+  - Adopciones
+- Control de acceso mediante autenticación JWT (utilizando la librería **Simple JWT** para Django REST Framework).
 
-## Requerimientos frontend
+## Requerimientos
 
-1. Debe utilizar React + Typescript junto al framework [Mantine UI](https://mantine.dev/).
+- Python 3.8+
+- Django 4.0+
+- Django REST Framework 3.12+
+- Simple JWT
 
-2. Debe contar con un solo registro  para los voluntarios y adoptantes. Los administradores (superusers) solo pueden ser creados desde Django admin. Para terminos prácticos puede asumir que los roles son excluyentes.
+## Instalación
 
-3. Debe contar con un Login unificado para los voluntarios, adoptantes y administradores.
+### 1. Clonar el repositorio:
 
-4. Los administradores pueden acceder al CRUD de los animales en albergue, de los voluntarios, de los adoptantes y de las adopciones.
+```bash
+git clone https://github.com/usuario/shelter-api.git
+cd shelter-api
+```
 
-5. Los adoptantes solo pueden visualizar los animales disponibles para adopción y solicitar la adopción de un animal.
-   
-7. Los voluntarios pueden visualizar los animales del albergue, los adoptantes y las adopciones. Además, pueden cambiar el estado de un animal en albergue a "adoptado" o "en adopción".
+### 2. Crear y activar un entorno virtual:
 
+```bash
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+```
 
-## Adicionales
-1. Deployar el cliente web y servidor backend en la capa gratuita de algún servicio cloud.
-2. Realizar un esquema de testing para el backend, basado en probar los endpoints, y todo lo que ello implica.
+### 3. Instalar dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configurar las variables de entorno:
+
+Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
+
+```bash
+SECRET_KEY=your_secret_key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DB_NAME
+```
+
+### 5. Migraciones:
+
+Ejecuta las migraciones para configurar la base de datos:
+
+```bash
+python manage.py migrate
+```
+
+### 6. Crear superusuario (opcional para el admin):
+
+```bash
+python manage.py createsuperuser
+```
+
+### 7. Iniciar el servidor de desarrollo:
+
+```bash
+python manage.py runserver
+```
+
+## Uso
+
+### Endpoints principales
+
+- **Adoptantes**: Gestión de las personas que adoptan animales.
+  - `GET /api/adoptants/`: Listar todos los adoptantes.
+  - `POST /api/adoptants/`: Crear un adoptante.
+  - `GET /api/adoptants/{id}/`: Obtener información de un adoptante.
+  - `PUT /api/adoptants/{id}/`: Actualizar adoptante.
+  - `PATCH /api/adoptants/{id}/`: Actualizar parcialmente un adoptante.
+  - `DELETE /api/adoptants/{id}/`: Eliminar adoptante.
+
+- **Animales**: Gestión de los animales rescatados.
+  - `GET /api/animals/`: Listar todos los animales.
+  - `POST /api/animals/`: Crear un nuevo animal.
+  - `GET /api/animals/{id}/`: Obtener información de un animal.
+  - `PUT /api/animals/{id}/`: Actualizar un animal.
+  - `PATCH /api/animals/{id}/`: Actualizar parcialmente un animal.
+  - `DELETE /api/animals/{id}/`: Eliminar un animal.
+
+- **Adopciones**: Gestión de las adopciones.
+  - `GET /api/adoptions/`: Listar todas las adopciones.
+  - `POST /api/adoptions/`: Registrar una nueva adopción.
+  - `GET /api/adoptions/{id}/`: Obtener detalles de una adopción.
+  - `PUT /api/adoptions/{id}/`: Actualizar una adopción.
+  - `PATCH /api/adoptions/{id}/`: Actualizar parcialmente una adopción.
+  - `DELETE /api/adoptions/{id}/`: Eliminar una adopción.
+
+- **Voluntarios**: Gestión de los voluntarios del albergue.
+  - `GET /api/volunteers/`: Listar todos los voluntarios.
+  - `POST /api/volunteers/`: Crear un voluntario.
+  - `GET /api/volunteers/{id}/`: Obtener información de un voluntario.
+  - `PUT /api/volunteers/{id}/`: Actualizar voluntario.
+  - `PATCH /api/volunteers/{id}/`: Actualizar parcialmente un voluntario.
+  - `DELETE /api/volunteers/{id}/`: Eliminar voluntario.
+
+## Autenticación
+
+La API utiliza autenticación basada en JSON Web Tokens (JWT). Para obtener un token de acceso, realiza una solicitud POST a:
+
+```bash
+POST /api/token/
+```
+
+Con las credenciales correctas, recibirás un `access_token` y un `refresh_token` que podrás usar para autenticarte en los demás endpoints.
+
+Para refrescar el token:
+
+```bash
+POST /api/token/refresh/
+```
+
+## Documentación de la API
+
+La documentación detallada de la API se puede consultar en `/api/schema/swagger-ui/`  or  cuando el servidor de desarrollo esté en ejecución.

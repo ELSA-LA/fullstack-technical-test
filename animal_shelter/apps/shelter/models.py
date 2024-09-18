@@ -6,69 +6,6 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
 
-# class CustomUserManager(BaseUserManager):
-#     def create_user(self, email, password=None, **extra_fields):
-#         if not email:
-#             raise ValueError('The Email field must be set')
-#         email = self.normalize_email(email)
-#         user = self.model(email=email, **extra_fields)
-#         user.set_password(password)
-#         user.save(using=self._db)
-#         return user
-
-#     def create_superuser(self, email, password=None, **extra_fields):
-#         extra_fields.setdefault('is_staff', True)
-#         extra_fields.setdefault('is_superuser', True)
-#         return self.create_user(email, password, **extra_fields)
-
-# class CustomUser(AbstractBaseUser):
-#     STATUS_CHOICES = (
-#         ('active', 'Activo'),
-#         ('inactive', 'Inactivo'),
-#     )
-
-#     USER_TYPE_CHOICES = (
-#         ('volunteer', 'Voluntario'),
-#         ('adopter', 'Adoptante'),
-#         ('admin', 'Administrador'),
-#     )
-
-#     email = models.EmailField(unique=True, verbose_name='Correo Electrónico')
-#     first_name = models.CharField(max_length=30, verbose_name='Nombre')
-#     last_name = models.CharField(max_length=30, verbose_name='Apellido')
-#     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active', verbose_name='Estado')
-#     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
-#     is_staff = models.BooleanField(default=False)
-#     is_active = models.BooleanField(default=True)
-#     is_superuser = models.BooleanField(default=False)
-
-#     objects = CustomUserManager()
-
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = ['user_type']
-    
-#     def __str__(self):
-#         return self.email
-
-#     def has_perm(self, perm, obj=None):
-#         """Devuelve True si el usuario tiene el permiso especificado."""
-#         return self.is_superuser
-
-#     def has_module_perms(self, app_label):
-#         """Devuelve True si el usuario tiene permisos para ver las apps del módulo especificado."""
-#         return self.is_superuser
-    
-#     # groups = models.ManyToManyField(
-#     #     'auth.Group',
-#     #     related_name='customuser_set',
-#     #     blank=True,
-#     # )
-#     # user_permissions = models.ManyToManyField(
-#     #     'auth.Permission',
-#     #     related_name='customuser_set',
-#     #     blank=True,
-#     # )
-
 class ShelterUser(AbstractUser):
     is_volunteer = models.BooleanField(default=False)
     is_adoptant = models.BooleanField(default=False)
@@ -177,9 +114,11 @@ class Animal(BaseDataModel):
 
 # Adoption Model
 class Adoption(BaseDataModel):
+    STATUS_COMPLETED = 'completed'
+    STATUS_IN_PROCESS = 'in_process'
     STATUS_CHOICES = (
-        ('completed', 'Finalizado'),
-        ('in_process', 'En Proceso'),
+        (STATUS_COMPLETED, 'Finalizado'),
+        (STATUS_IN_PROCESS, 'En Proceso'),
     )
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE,related_name='adoptions', verbose_name='Animal')
     volunteer = models.ForeignKey(ShelterUser, on_delete=models.CASCADE, related_name='volunteer_adoptions', verbose_name='Voluntario')
