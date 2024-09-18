@@ -49,8 +49,8 @@ La **Shelter API** es una aplicación diseñada para administrar un albergue de 
 ### 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/usuario/shelter-api.git
-cd shelter-api
+git clone git@github.com:ELSA-LA/fullstack-technical-test.git
+cd fullstack-technical-test/
 ```
 
 ### 2. Crear y activar un entorno virtual:
